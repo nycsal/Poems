@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Maryam My Sunshine Daughter - Heartful Poem Game</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Google Fonts for beautiful typography -->
   <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -44,13 +43,13 @@
     }
     .brand-title {
       font-family: 'Amiri', serif;
-      font-size: 2.7em;
+      font-size: 3em;
       color: #111;
       letter-spacing: 2px;
       text-shadow: 0 2px 12px #fff;
     }
     .greeting {
-      font-size: 1.25em;
+      font-size: 1.5em;
       color: #111;
       margin-bottom: 32px;
       margin-top: 18px;
@@ -61,13 +60,13 @@
     .hearts-container {
       display: flex;
       justify-content: center;
-      gap: 240px;
+      gap: 120px;
       margin: 56px 0 60px 0;
       flex-wrap: wrap;
     }
     .heart-btn {
-      width: 1280px;
-      height: 1280px;
+      width: 640px;
+      height: 640px;
       background: none;
       border: none;
       cursor: pointer;
@@ -92,7 +91,7 @@
       left: 50%;
       transform: translate(-50%, -50%);
       font-family: 'Quicksand', sans-serif;
-      font-size: 8.4em;
+      font-size: 4.5em;
       font-weight: bold;
       color: #111;
       text-shadow: var(--heart-label-shadow);
@@ -132,7 +131,7 @@
     }
     .poem-category {
       font-family: 'Quicksand', sans-serif;
-      font-size: 3em;
+      font-size: 2.5em;
       font-weight: bold;
       color: var(--accent);
       margin-bottom: 24px;
@@ -141,7 +140,7 @@
     }
     .poem-translation {
       font-family: 'Quicksand', sans-serif;
-      font-size: 2em;
+      font-size: 1.7em;
       margin-bottom: 18px;
       text-align: left;
       font-style: italic;
@@ -149,7 +148,7 @@
     }
     .poem-farsi {
       font-family: 'Amiri', serif;
-      font-size: 1.7em;
+      font-size: 1.5em;
       margin-bottom: 14px;
       text-align: right;
       direction: rtl;
@@ -157,7 +156,7 @@
     }
     .poem-phonetic {
       font-family: 'Quicksand', sans-serif;
-      font-size: 1.5em;
+      font-size: 1.3em;
       margin-bottom: 12px;
       text-align: left;
       line-height: 1.5;
@@ -165,13 +164,13 @@
     .poem-author {
       font-family: 'Amiri', serif;
       color: #ffb300;
-      font-size: 1.4em;
+      font-size: 1.2em;
       margin-top: 18px;
       text-align: left;
     }
     .learn-link {
       color: var(--link-color);
-      font-size: 1.3em;
+      font-size: 1.2em;
       margin-top: 10px;
       text-decoration: underline;
       cursor: pointer;
@@ -210,11 +209,11 @@
         gap: 40px;
       }
       .heart-btn {
-        width: 640px;
-        height: 640px;
+        width: 320px;
+        height: 320px;
       }
       .heart-label {
-        font-size: 4.2em;
+        font-size: 2.2em;
       }
       .poem-canvas {
         padding: 22px 8px;
@@ -240,11 +239,11 @@
         gap: 8px;
       }
       .heart-btn {
-        width: 320px;
-        height: 320px;
+        width: 160px;
+        height: 160px;
       }
       .heart-label {
-        font-size: 2.2em;
+        font-size: 1em;
       }
       .poem-canvas {
         padding: 8px 2px;
@@ -259,15 +258,6 @@
         font-size: 1em;
       }
     }
-    @media (max-width: 600px) {
-      .heart-btn {
-        width: 160px;
-        height: 160px;
-      }
-      .heart-label {
-        font-size: 1em;
-      }
-    }
   </style>
 </head>
 <body>
@@ -279,9 +269,7 @@
     </div>
   </header>
 
-  <div class="hearts-container" id="hearts">
-    <!-- Heart Buttons Will Be Injected Here -->
-  </div>
+  <div class="hearts-container" id="hearts"></div>
 
   <div class="poem-canvas" id="poemCanvas">
     <button class="home-btn" id="homeBtn">Home</button>
@@ -294,25 +282,81 @@
   </div>
 
   <script>
-    // Heart data with unique learn links for each poem (replace '#' with your real URLs)
+    // 10 poems per category, expanded poets
     const hearts = [
       {
         label: "Gratitude",
         color: "#ffb6b9",
         poems: [
           {
-            farsi: `هر نفسی که فرو می‌رود ممدّ حیات است\nو چون برون می‌آید مفرّح ذات است\nپس در هر نفسی دو نعمت موجود است\nو بر هر نعمتی شکری واجب`,
-            phonetic: `Har nafasi ke foru miravad momad-e hayaat ast\nVa chun borun miayad mofarreh-e zaat ast\nPas dar har nafasi do nemat mojood ast\nVa bar har nemati shokri vajeb`,
-            translation: `Each breath inhaled sustains life,\nEach exhaled, refreshes the soul.\nThus in every breath, two blessings reside,\nFor each, gratitude is owed.`,
+            farsi: "هر نفسی که فرو می‌رود ممدّ حیات است\nو چون برون می‌آید مفرّح ذات است\nپس در هر نفسی دو نعمت موجود است\nو بر هر نعمتی شکری واجب",
+            phonetic: "Har nafasi ke foru miravad momad-e hayaat ast\nVa chun borun miayad mofarreh-e zaat ast\nPas dar har nafasi do nemat mojood ast\nVa bar har nemati shokri vajeb",
+            translation: "Each breath inhaled sustains life,\nEach exhaled, refreshes the soul.\nThus in every breath, two blessings reside,\nFor each, gratitude is owed.",
             author: "Saadi",
             learn: "https://en.wikipedia.org/wiki/Saadi_Shirazi"
           },
           {
-            farsi: `شکر نعمت نعمتت افزون کند\nکفر نعمت از کفت بیرون کند`,
-            phonetic: `Shokr-e nemat, nematat afzoon konad\nKofr-e nemat, az kaft birun konad`,
-            translation: `Gratitude increases your blessings,\nIngratitude takes them away.`,
+            farsi: "شکر نعمت نعمتت افزون کند\nکفر نعمت از کفت بیرون کند",
+            phonetic: "Shokr-e nemat, nematat afzoon konad\nKofr-e nemat, az kaft birun konad",
+            translation: "Gratitude increases your blessings,\nIngratitude takes them away.",
             author: "Saadi",
             learn: "https://www.tebyan.net/newindex.aspx?pid=934&articleID=553132"
+          },
+          {
+            farsi: "سپاس نعمت حق را که هر چه هست از اوست\nبه شکر نعمت او هر دمی بیفزاییم",
+            phonetic: "Sepas-e nemat-e Haq ra ke har che hast az oost\nBe shokr-e nemat-e oo har dami biazayim",
+            translation: "Praise be to God's blessings, for all is from Him.\nLet us increase our gratitude at every moment.",
+            author: "Saadi",
+            learn: "https://en.wikipedia.org/wiki/Saadi_Shirazi"
+          },
+          {
+            farsi: "Even after all this time,\nThe sun never says to the earth, 'You owe me.'\nLook what happens with a love like that,\nIt lights the whole sky.",
+            phonetic: "Ba in hame moddat,\nKhorshid hargez be zamin nemigooyad: 'Bedehi dari.'\nBebin che mishavad ba in eshgh,\nTamam-e aseman roshan mishavad.",
+            translation: "Even after all this time,\nThe sun never says to the earth, 'You owe me.'\nLook what happens with a love like that,\nIt lights the whole sky.",
+            author: "Hafez",
+            learn: "https://launchyourgenius.com/2016/07/11/life-lessons-hafiz/"
+          },
+          {
+            farsi: "Join me in the pure atmosphere of gratitude for life!",
+            phonetic: "Ba man bash dar havaye pak-e shokr baraye zendegi!",
+            translation: "Join me in the pure atmosphere of gratitude for life!",
+            author: "Hafez",
+            learn: "https://launchyourgenius.com/2016/07/11/life-lessons-hafiz/"
+          },
+          {
+            farsi: "به جهان خرم از آنم که جهان خرم از اوست\nعاشقم بر همه عالم که همه عالم از اوست",
+            phonetic: "Be jahan khorram az anam ke jahan khorram az oost\nAshegham bar hameh alam ke hameh alam az oost",
+            translation: "I am joyful in the world because the world is joyful from Him.\nI love the entire universe because the entire universe is from Him.",
+            author: "Saadi",
+            learn: "https://en.wikipedia.org/wiki/Saadi_Shirazi"
+          },
+          {
+            farsi: "سپاسگزار باش، حتی اگر اندک است\nکه شکر، دل را بزرگ می‌کند.",
+            phonetic: "Sepasgozar bash, hatta agar andak ast\nKe shokr, del ra bozorg mikonad.",
+            translation: "Be grateful, even if it is little.\nGratitude makes the heart grow.",
+            author: "Parvin Etesami",
+            learn: "https://en.wikipedia.org/wiki/Parvin_Etesami"
+          },
+          {
+            farsi: "شکرانه بده هر نفس ای دل که تو را\nبی‌منت و بی‌واسطه جان داده خدا",
+            phonetic: "Shokrane bede har nafas ey del ke to ra\nBi-mannat o bi-vasete jan dade Khoda",
+            translation: "Give thanks with every breath, O heart, for God\nHas given you life without expectation or intermediary.",
+            author: "Rumi",
+            learn: "https://en.wikipedia.org/wiki/Rumi"
+          },
+          {
+            farsi: "شکرگزاری، چراغی است در دل\nکه راه را روشن می‌کند.",
+            phonetic: "Shokrgozari, cheraghi ast dar del\nKe rah ra roshan mikonad.",
+            translation: "Gratitude is a lamp in the heart\nThat lights the way.",
+            author: "Sohrab Sepehri",
+            learn: "https://en.wikipedia.org/wiki/Sohrab_Sepehri"
+          },
+          {
+            farsi: "سپاس باد بر آنکه به ما جان داد\nو دل را به نور معرفت روشن ساخت.",
+            phonetic: "Sepas bad bar anke be ma jan dad\nVa del ra be noor-e marefat roshan sakht.",
+            translation: "Thanks to the One who gave us life\nAnd illuminated our hearts with knowledge.",
+            author: "Bidel Dehlavi",
+            learn: "https://en.wikipedia.org/wiki/Bidel_Dehlavi"
           }
         ]
       },
@@ -321,18 +365,74 @@
         color: "#fcd5ce",
         poems: [
           {
-            farsi: `ای دیده تو بس روشن، ای دل تو بس بیدار\nدر هر نظر اندیشه، در هر قدم اسرار`,
-            phonetic: `Ey dideh to bas roshan, ey del to bas bidar\nDar har nazar andisheh, dar har ghadam asrar`,
-            translation: `O eye, so bright; O heart, so awake,\nIn every glance, wisdom; in every step, secrets unfold.`,
+            farsi: "ای دیده تو بس روشن، ای دل تو بس بیدار\nدر هر نظر اندیشه، در هر قدم اسرار",
+            phonetic: "Ey dideh to bas roshan, ey del to bas bidar\nDar har nazar andisheh, dar har ghadam asrar",
+            translation: "O eye, so bright; O heart, so awake,\nIn every glance, wisdom; in every step, secrets unfold.",
             author: "Parvin Etesami",
             learn: "https://en.wikipedia.org/wiki/Parvin_Etesami"
           },
           {
-            farsi: `آگاه باش تا که جهان را دری\nدر خویش نگر تا که خدا را بری`,
-            phonetic: `Agah bash ta ke jahan ra dari\nDar khish negar ta ke Khoda ra bari`,
-            translation: `Be aware to grasp the world,\nLook within to find the Divine.`,
+            farsi: "آگاه باش تا که جهان را دری\nدر خویش نگر تا که خدا را بری",
+            phonetic: "Agah bash ta ke jahan ra dari\nDar khish negar ta ke Khoda ra bari",
+            translation: "Be aware to grasp the world,\nLook within to find the Divine.",
             author: "Hafez",
             learn: "https://en.wikipedia.org/wiki/Hafez"
+          },
+          {
+            farsi: "خودشناسی، کلید درک جهان است.",
+            phonetic: "Khodshenasi, kelid-e dark-e jahan ast.",
+            translation: "Self-awareness is the key to understanding the world.",
+            author: "Rumi",
+            learn: "https://en.wikipedia.org/wiki/Rumi"
+          },
+          {
+            farsi: "چشم اگر باز کنی، هر طرف نوری هست\nدل اگر پاک کنی، هر سخن نغزی هست",
+            phonetic: "Cheshm agar baz koni, har taraf noori hast\nDel agar pak koni, har sokhan naghzi hast",
+            translation: "If you open your eyes, there is light everywhere.\nIf you purify your heart, every word is sweet.",
+            author: "Saadi",
+            learn: "https://en.wikipedia.org/wiki/Saadi_Shirazi"
+          },
+          {
+            farsi: "آگاهی، چراغ راه زندگی است.",
+            phonetic: "Agahi, cheragh-e rah-e zendegi ast.",
+            translation: "Awareness is the lamp on the path of life.",
+            author: "Nima Yushij",
+            learn: "https://en.wikipedia.org/wiki/Nima_Yushij"
+          },
+          {
+            farsi: "در سکوت، آگاهی می‌روید.",
+            phonetic: "Dar sokoot, agahi mi-rooyad.",
+            translation: "In silence, awareness grows.",
+            author: "Forough Farrokhzad",
+            learn: "https://en.wikipedia.org/wiki/Forough_Farrokhzad"
+          },
+          {
+            farsi: "هر که خود را شناخت، خدا را شناخت.",
+            phonetic: "Har ke khod ra shenakht, Khoda ra shenakht.",
+            translation: "Whoever knows themselves, knows God.",
+            author: "Attar",
+            learn: "https://en.wikipedia.org/wiki/Attar_of_Nishapur"
+          },
+          {
+            farsi: "آگاهی، نخستین گام به سوی آزادی است.",
+            phonetic: "Agahi, nakhostin gam be sooye azadi ast.",
+            translation: "Awareness is the first step toward freedom.",
+            author: "Simin Behbahani",
+            learn: "https://en.wikipedia.org/wiki/Simin_Behbahani"
+          },
+          {
+            farsi: "در هر لحظه، حقیقتی نهفته است؛ آگاه باش.",
+            phonetic: "Dar har lahze, haghighati nahofteh ast; agah bash.",
+            translation: "In every moment, a truth is hidden; be aware.",
+            author: "Sohrab Sepehri",
+            learn: "https://en.wikipedia.org/wiki/Sohrab_Sepehri"
+          },
+          {
+            farsi: "دیدن، آغاز دانستن است.",
+            phonetic: "Didan, aghaz-e danestan ast.",
+            translation: "To see is the beginning of knowing.",
+            author: "Mehdi Akhavan Sales",
+            learn: "https://en.wikipedia.org/wiki/Mehdi_Akhavan_Sales"
           }
         ]
       },
@@ -341,18 +441,74 @@
         color: "#b5ead7",
         poems: [
           {
-            farsi: `به خود آی و جهان را به خود آسان گیر\nکه تو آن گوهری، خود را ارزان مگیر`,
-            phonetic: `Be khod ay va jahan ra be khod asan gir\nKe to an gohari, khod ra arzan magir`,
-            translation: `Return to yourself and make the world easy for you,\nYou are that precious gem, do not undervalue yourself.`,
+            farsi: "به خود آی و جهان را به خود آسان گیر\nکه تو آن گوهری، خود را ارزان مگیر",
+            phonetic: "Be khod ay va jahan ra be khod asan gir\nKe to an gohari, khod ra arzan magir",
+            translation: "Return to yourself and make the world easy for you,\nYou are that precious gem, do not undervalue yourself.",
             author: "Parvin Etesami",
             learn: "https://en.wikipedia.org/wiki/Parvin_Etesami"
           },
           {
-            farsi: `تو خود حجاب خودی حافظ از میان برخیز\nخوشا کسی که در این راه بی‌حجاب رود`,
-            phonetic: `To khod hejabe khodi Hafez az miyan barkhiz\nKhosha kasi ke dar in rah bi-hejab ravad`,
-            translation: `You are your own veil, Hafez, remove it from between.\nFortunate is the one who walks this path unveiled.`,
+            farsi: "تو خود حجاب خودی حافظ از میان برخیز\nخوشا کسی که در این راه بی‌حجاب رود",
+            phonetic: "To khod hejabe khodi Hafez az miyan barkhiz\nKhosha kasi ke dar in rah bi-hejab ravad",
+            translation: "You are your own veil, Hafez, remove it from between.\nFortunate is the one who walks this path unveiled.",
             author: "Hafez",
             learn: "https://en.wikipedia.org/wiki/Hafez"
+          },
+          {
+            farsi: "خودباوری، نخستین گام پیروزی است.",
+            phonetic: "Khodbavari, nakhostin gam-e pirouzi ast.",
+            translation: "Self-confidence is the first step to victory.",
+            author: "Forough Farrokhzad",
+            learn: "https://en.wikipedia.org/wiki/Forough_Farrokhzad"
+          },
+          {
+            farsi: "در دل شب، ستاره باش.",
+            phonetic: "Dar del-e shab, setareh bash.",
+            translation: "In the heart of night, be a star.",
+            author: "Rumi",
+            learn: "https://en.wikipedia.org/wiki/Rumi"
+          },
+          {
+            farsi: "اگر خود را باور کنی، جهان نیز تو را باور خواهد کرد.",
+            phonetic: "Agar khod ra bavar koni, jahan niz to ra bavar khahad kard.",
+            translation: "If you believe in yourself, the world will believe in you too.",
+            author: "Sohrab Sepehri",
+            learn: "https://en.wikipedia.org/wiki/Sohrab_Sepehri"
+          },
+          {
+            farsi: "درخت ایستاده، از باد نمی‌هراسد.",
+            phonetic: "Derakht istadeh, az bad nemi-harasad.",
+            translation: "A standing tree does not fear the wind.",
+            author: "Simin Behbahani",
+            learn: "https://en.wikipedia.org/wiki/Simin_Behbahani"
+          },
+          {
+            farsi: "اعتماد به نفس، راز موفقیت است.",
+            phonetic: "Etemad be nafs, raz-e movafaghiat ast.",
+            translation: "Self-confidence is the secret of success.",
+            author: "Nima Yushij",
+            learn: "https://en.wikipedia.org/wiki/Nima_Yushij"
+          },
+          {
+            farsi: "هر که خود را شناخت، از هیچ‌کس نمی‌ترسد.",
+            phonetic: "Har ke khod ra shenakht, az hichkas nemitarsad.",
+            translation: "Whoever knows themselves, fears no one.",
+            author: "Attar",
+            learn: "https://en.wikipedia.org/wiki/Attar_of_Nishapur"
+          },
+          {
+            farsi: "باور کن که می‌توانی و نیمی از راه را رفته‌ای.",
+            phonetic: "Bavar kon ke mitavani va nimi az rah ra rafte-i.",
+            translation: "Believe that you can, and you are halfway there.",
+            author: "Forough Farrokhzad",
+            learn: "https://en.wikipedia.org/wiki/Forough_Farrokhzad"
+          },
+          {
+            farsi: "ای دل، تو قوی‌تر از آنی که می‌پنداری.",
+            phonetic: "Ey del, to ghavitar az ani ke mipendari.",
+            translation: "O heart, you are stronger than you think.",
+            author: "Bidel Dehlavi",
+            learn: "https://en.wikipedia.org/wiki/Bidel_Dehlavi"
           }
         ]
       },
@@ -361,18 +517,74 @@
         color: "#c3bef7",
         poems: [
           {
-            farsi: `تا توانی به جهان خدمت محتاجان کن\nبه دمی یا درمی یا قلمی یا قدمی`,
-            phonetic: `Ta tavani be jahan khedmat-e mohtajan kon\nBe dami ya darami ya ghalami ya ghadami`,
-            translation: `As long as you can, serve those in need—\nWith a breath, a coin, a pen, or a step.`,
+            farsi: "تا توانی به جهان خدمت محتاجان کن\nبه دمی یا درمی یا قلمی یا قدمی",
+            phonetic: "Ta tavani be jahan khedmat-e mohtajan kon\nBe dami ya darami ya ghalami ya ghadami",
+            translation: "As long as you can, serve those in need—\nWith a breath, a coin, a pen, or a step.",
             author: "Saadi",
             learn: "https://en.wikipedia.org/wiki/Saadi_Shirazi"
           },
           {
-            farsi: `خاک شو تا گل بروید ای عزیز\nکبر و نازکشی ز تو دور باد`,
-            phonetic: `Khak sho ta gol beroyad ey aziz\nKebro naz keshidan az to door bad`,
-            translation: `Become dust so flowers may grow, dear one.\nMay arrogance and pride be far from you.`,
+            farsi: "خاک شو تا گل بروید ای عزیز\nکبر و نازکشی ز تو دور باد",
+            phonetic: "Khak sho ta gol beroyad ey aziz\nKebro naz keshidan az to door bad",
+            translation: "Become dust so flowers may grow, dear one.\nMay arrogance and pride be far from you.",
             author: "Rumi",
             learn: "https://en.wikipedia.org/wiki/Rumi"
+          },
+          {
+            farsi: "تواضع، زینت انسان است.",
+            phonetic: "Tavazo', zinat-e ensan ast.",
+            translation: "Humility is the adornment of humanity.",
+            author: "Parvin Etesami",
+            learn: "https://en.wikipedia.org/wiki/Parvin_Etesami"
+          },
+          {
+            farsi: "آب هر چه فروتر رود، فروغش بیشتر است.",
+            phonetic: "Ab har che forootar ravad, foroughash bishtar ast.",
+            translation: "The lower water flows, the brighter it shines.",
+            author: "Saadi",
+            learn: "https://en.wikipedia.org/wiki/Saadi_Shirazi"
+          },
+          {
+            farsi: "هر که فروتن شد، عزیز شد.",
+            phonetic: "Har ke forootan shod, aziz shod.",
+            translation: "Whoever is humble, becomes beloved.",
+            author: "Hafez",
+            learn: "https://en.wikipedia.org/wiki/Hafez"
+          },
+          {
+            farsi: "درخت هر چه پربارتر، افتاده‌تر.",
+            phonetic: "Derakht har che porbartar, oftadeh-tar.",
+            translation: "The more fruitful the tree, the lower its branches.",
+            author: "Saadi",
+            learn: "https://en.wikipedia.org/wiki/Saadi_Shirazi"
+          },
+          {
+            farsi: "فروتنی، راه رسیدن به بزرگی است.",
+            phonetic: "Forootani, rah-e residan be bozorgi ast.",
+            translation: "Humility is the path to greatness.",
+            author: "Attar",
+            learn: "https://en.wikipedia.org/wiki/Attar_of_Nishapur"
+          },
+          {
+            farsi: "کبر و غرور، دل را کور می‌کند.",
+            phonetic: "Kebro ghorur, del ra kur mikonad.",
+            translation: "Pride and arrogance blind the heart.",
+            author: "Forough Farrokhzad",
+            learn: "https://en.wikipedia.org/wiki/Forough_Farrokhzad"
+          },
+          {
+            farsi: "خاک شو تا گل شوی.",
+            phonetic: "Khak sho ta gol shavi.",
+            translation: "Become dust to become a flower.",
+            author: "Rumi",
+            learn: "https://en.wikipedia.org/wiki/Rumi"
+          },
+          {
+            farsi: "در فروتنی، آرامش است.",
+            phonetic: "Dar forootani, aramesh ast.",
+            translation: "In humility, there is peace.",
+            author: "Sohrab Sepehri",
+            learn: "https://en.wikipedia.org/wiki/Sohrab_Sepehri"
           }
         ]
       },
@@ -381,26 +593,87 @@
         color: "#f7b267",
         poems: [
           {
-            farsi: `جهان چون خط و خال و چشم و ابروست\nکه هر چیزی به جای خویش نیکوست`,
-            phonetic: `Jahan chun khat o khal o cheshm o abroost\nKe har chizi be jaye khish nikoust`,
-            translation: `The world is like lines, moles, eyes, and brows—\nEach thing is beautiful in its own place.`,
+            farsi: "جهان چون خط و خال و چشم و ابروست\nکه هر چیزی به جای خویش نیکوست",
+            phonetic: "Jahan chun khat o khal o cheshm o abroost\nKe har chizi be jaye khish nikoust",
+            translation: "The world is like lines, moles, eyes, and brows—\nEach thing is beautiful in its own place.",
             author: "Saadi",
             learn: "https://en.wikipedia.org/wiki/Saadi_Shirazi"
           },
           {
-            farsi: `گر نظر پاک کنی، هر چه ببینی نیکوست\nچشم اگر خوب ببیند، همه عالم زیباست`,
-            phonetic: `Gar nazar pak koni, har che bebinni nikoust\nChashm agar khub bebinad, hameh alam zibast`,
-            translation: `If you purify your sight, all you see is good.\nWhen the eye sees well, the whole world is beautiful.`,
+            farsi: "گر نظر پاک کنی، هر چه ببینی نیکوست\nچشم اگر خوب ببیند، همه عالم زیباست",
+            phonetic: "Gar nazar pak koni, har che bebinni nikoust\nChashm agar khub bebinad, hameh alam zibast",
+            translation: "If you purify your sight, all you see is good.\nWhen the eye sees well, the whole world is beautiful.",
             author: "Hafez",
             learn: "https://en.wikipedia.org/wiki/Hafez"
+          },
+          {
+            farsi: "جهان را به چشم محبت بنگر.",
+            phonetic: "Jahan ra be cheshm-e mohabbat bengar.",
+            translation: "Look at the world with eyes of love.",
+            author: "Rumi",
+            learn: "https://en.wikipedia.org/wiki/Rumi"
+          },
+          {
+            farsi: "نگاه تازه، دنیای تازه می‌آفریند.",
+            phonetic: "Negah-e tazeh, donyaye tazeh miafarinad.",
+            translation: "A fresh perspective creates a new world.",
+            author: "Forough Farrokhzad",
+            learn: "https://en.wikipedia.org/wiki/Forough_Farrokhzad"
+          },
+          {
+            farsi: "در هر چیز، زیبایی نهفته است.",
+            phonetic: "Dar har chiz, zibayi nahofteh ast.",
+            translation: "There is beauty hidden in everything.",
+            author: "Sohrab Sepehri",
+            learn: "https://en.wikipedia.org/wiki/Sohrab_Sepehri"
+          },
+          {
+            farsi: "جهان آینه‌ای است، هر چه هستی همان می‌بینی.",
+            phonetic: "Jahan ayene-i ast, har che hasti haman mibini.",
+            translation: "The world is a mirror; you see what you are.",
+            author: "Bidel Dehlavi",
+            learn: "https://en.wikipedia.org/wiki/Bidel_Dehlavi"
+          },
+          {
+            farsi: "دیدگاه نو، زندگی نو می‌آورد.",
+            phonetic: "Didgah-e no, zendegi no miaavarad.",
+            translation: "A new perspective brings new life.",
+            author: "Nima Yushij",
+            learn: "https://en.wikipedia.org/wiki/Nima_Yushij"
+          },
+          {
+            farsi: "اگر به روشنی نگاه کنی، تاریکی ناپدید می‌شود.",
+            phonetic: "Agar be roshani negah koni, tarikhi napadid mishavad.",
+            translation: "If you look towards the light, darkness disappears.",
+            author: "Mehdi Akhavan Sales",
+            learn: "https://en.wikipedia.org/wiki/Mehdi_Akhavan_Sales"
+          },
+          {
+            farsi: "زندگی را از زاویه‌ای دیگر ببین.",
+            phonetic: "Zendegi ra az zavie-i digar bebin.",
+            translation: "See life from another angle.",
+            author: "Simin Behbahani",
+            learn: "https://en.wikipedia.org/wiki/Simin_Behbahani"
+          },
+          {
+            farsi: "در تفاوت‌ها، زیبایی است.",
+            phonetic: "Dar tafavotha, zibayi ast.",
+            translation: "In differences, there is beauty.",
+            author: "Parvin Etesami",
+            learn: "https://en.wikipedia.org/wiki/Parvin_Etesami"
           }
         ]
       }
     ];
 
-    // Track shown poems to minimize repeats
-    let poemOrder = hearts.map(heart => shuffle(Array.from({length: heart.poems.length}, (_, i) => i)));
-    let poemIndex = Array(hearts.length).fill(0);
+    // Local storage for minimal repeats
+    let viewedPoems = {};
+    try {
+      const savedHistory = localStorage.getItem('maryamPoemHistory');
+      if (savedHistory) {
+        viewedPoems = JSON.parse(savedHistory);
+      }
+    } catch (e) {}
 
     function shuffle(array) {
       for (let i = array.length - 1; i > 0; i--) {
@@ -410,7 +683,16 @@
       return array;
     }
 
-    // SVG Heart Template
+    // Render hearts
+    const heartsContainer = document.getElementById('hearts');
+    hearts.forEach((heart, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'heart-btn';
+      btn.innerHTML = heartSVG(heart.color) + `<span class="heart-label">${heart.label}</span>`;
+      btn.addEventListener('click', () => showPoem(idx));
+      heartsContainer.appendChild(btn);
+    });
+
     function heartSVG(color) {
       return `
         <svg class="heart-svg" viewBox="0 0 100 100">
@@ -424,29 +706,32 @@
       `;
     }
 
-    // Render hearts
-    const heartsContainer = document.getElementById('hearts');
-    hearts.forEach((heart, idx) => {
-      const btn = document.createElement('button');
-      btn.className = 'heart-btn';
-      btn.innerHTML = heartSVG(heart.color) + `<span class="heart-label">${heart.label}</span>`;
-      btn.addEventListener('click', () => showPoem(idx));
-      heartsContainer.appendChild(btn);
-    });
-
-    // Show poem, minimal repeats
     function showPoem(idx) {
       const heart = hearts[idx];
-      let order = poemOrder[idx];
-      let i = poemIndex[idx];
-      if (i >= order.length) {
-        order = shuffle(Array.from({length: heart.poems.length}, (_, i) => i));
-        poemOrder[idx] = order;
-        i = 0;
-        poemIndex[idx] = 0;
+      const categoryId = heart.label.toLowerCase();
+      if (!viewedPoems[categoryId]) {
+        viewedPoems[categoryId] = [];
       }
-      const poem = heart.poems[order[i]];
-      poemIndex[idx]++;
+      const availablePoems = heart.poems
+        .map((p, i) => ({p, i}))
+        .filter(obj => !viewedPoems[categoryId].includes(obj.i));
+      let poem, poemIndex;
+      if (availablePoems.length === 0) {
+        viewedPoems[categoryId] = [];
+        const randomIndex = Math.floor(Math.random() * heart.poems.length);
+        poem = heart.poems[randomIndex];
+        poemIndex = randomIndex;
+        viewedPoems[categoryId].push(poemIndex);
+      } else {
+        const randomObj = availablePoems[Math.floor(Math.random() * availablePoems.length)];
+        poem = randomObj.p;
+        poemIndex = randomObj.i;
+        viewedPoems[categoryId].push(poemIndex);
+      }
+      // Save to localStorage
+      try {
+        localStorage.setItem('maryamPoemHistory', JSON.stringify(viewedPoems));
+      } catch (e) {}
       document.getElementById('poemCategory').textContent = heart.label;
       document.getElementById('poemTranslation').textContent = poem.translation;
       document.getElementById('poemFarsi').textContent = poem.farsi;
@@ -458,14 +743,12 @@
       heartsContainer.style.display = 'none';
     }
 
-    // Home button
     document.getElementById('homeBtn').addEventListener('click', () => {
       document.getElementById('poemCanvas').style.display = 'none';
       document.getElementById('homeBtn').style.display = 'none';
       heartsContainer.style.display = 'flex';
     });
 
-    // Always show home button on poem page
     document.getElementById('poemCanvas').addEventListener('mousemove', () => {
       document.getElementById('homeBtn').style.display = 'block';
     });
