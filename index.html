@@ -1,157 +1,474 @@
-<style>
-  :root {
-    --bg-color: #fff;              /* Light background for black text */
-    --header-bg: #f7b267;
-    --text-color: #111;            /* Black text */
-    --heart-shadow: 0 12px 48px #fcd5ce;
-    --canvas-bg: #fff;
-    --canvas-border: #ffd6e0;
-    --canvas-shadow: 0 10px 40px #fcd5ce;
-    --accent: #f7b267;
-    --heart-label-shadow: 0 2px 12px #fff;
-    --link-color: #b388ff;
-    --link-hover: #ad1457;
-    --button-bg: linear-gradient(90deg, #ffb6b9, #fcd5ce);
-    --button-color: #111;
-    --button-hover-bg: linear-gradient(90deg, #fcd5ce, #ffb6b9);
-  }
-  body {
-    background: var(--bg-color);
-    color: var(--text-color);
-    font-family: 'Quicksand', Arial, sans-serif;
-    margin: 0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: background 0.4s, color 0.4s;
-  }
-  header {
-    background: var(--header-bg);
-    width: 100vw;
-    padding: 32px 0 18px 0;
-    margin-bottom: 0;
-    text-align: center;
-    box-shadow: 0 2px 18px #0002;
-  }
-  .brand-title {
-    font-family: 'Amiri', serif;
-    font-size: 2.7em;
-    color: #111;
-    letter-spacing: 2px;
-    text-shadow: 0 2px 12px #fff;
-  }
-  .greeting {
-    font-size: 1.25em;
-    color: #111;
-    margin-bottom: 32px;
-    margin-top: 18px;
-    font-family: 'Quicksand', sans-serif;
-    font-weight: bold;
-    text-shadow: 0 1px 8px #fff;
-  }
-  .hearts-container {
-    display: flex;
-    justify-content: center;
-    gap: 120px;
-    margin: 56px 0 60px 0;
-    flex-wrap: wrap;
-  }
-  .heart-btn {
-    width: 640px;
-    height: 640px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    outline: none;
-    position: relative;
-    transition: transform 0.1s;
-    margin-bottom: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .heart-svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-    filter: drop-shadow(var(--heart-shadow));
-  }
-  .heart-label {
-    position: absolute;
-    width: 90%;
-    top: 62%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: 'Quicksand', sans-serif;
-    font-size: 4.2em;
-    font-weight: bold;
-    color: #111;
-    text-shadow: var(--heart-label-shadow);
-    letter-spacing: 2px;
-    pointer-events: none;
-    white-space: pre-line;
-    text-align: center;
-    line-height: 1.2;
-    user-select: none;
-  }
-  .poem-canvas {
-    background: var(--canvas-bg);
-    border-radius: 38px;
-    box-shadow: var(--canvas-shadow);
-    border: 2.5px solid var(--canvas-border);
-    padding: 60px 48px 38px 48px;
-    max-width: 900px;
-    margin: 0 auto 36px auto;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    animation: fadeIn 0.5s;
-    position: relative;
-    color: #111;
-  }
-  .poem-category,
-  .poem-translation,
-  .poem-farsi,
-  .poem-phonetic,
-  .poem-author {
-    color: #111 !important;
-    text-shadow: none !important;
-  }
-  .learn-link {
-    color: var(--link-color);
-    font-size: 1.1em;
-    margin-top: 10px;
-    text-decoration: underline;
-    cursor: pointer;
-    transition: color 0.2s;
-    font-family: 'Quicksand', sans-serif;
-    display: inline-block;
-  }
-  .learn-link:hover {
-    color: var(--link-hover);
-  }
-  .home-btn {
-    display: none;
-    margin: 0 auto;
-    margin-bottom: 24px;
-    background: var(--button-bg);
-    color: var(--button-color);
-    border: none;
-    border-radius: 16px;
-    font-size: 1.25em;
-    font-family: 'Quicksand', sans-serif;
-    font-weight: bold;
-    padding: 16px 48px;
-    cursor: pointer;
-    box-shadow: 0 2px 12px #0003;
-    transition: background 0.2s;
-    position: absolute;
-    top: 30px;
-    right: 40px;
-    z-index: 10;
-  }
-  .home-btn:hover {
-    background: var(--button-hover-bg);
-  }
-</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Maryam My Sunshine Daughter - Heartful Poem Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts for beautiful typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #fff;
+      --header-bg: #f7b267;
+      --text-color: #111;
+      --heart-shadow: 0 16px 64px #fcd5ce;
+      --canvas-bg: #fff;
+      --canvas-border: #ffd6e0;
+      --canvas-shadow: 0 10px 40px #fcd5ce;
+      --accent: #f7b267;
+      --heart-label-shadow: 0 2px 12px #fff;
+      --link-color: #b388ff;
+      --link-hover: #ad1457;
+      --button-bg: linear-gradient(90deg, #ffb6b9, #fcd5ce);
+      --button-color: #111;
+      --button-hover-bg: linear-gradient(90deg, #fcd5ce, #ffb6b9);
+    }
+    body {
+      background: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'Quicksand', Arial, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: background 0.4s, color 0.4s;
+    }
+    header {
+      background: var(--header-bg);
+      width: 100vw;
+      padding: 32px 0 18px 0;
+      margin-bottom: 0;
+      text-align: center;
+      box-shadow: 0 2px 18px #0002;
+    }
+    .brand-title {
+      font-family: 'Amiri', serif;
+      font-size: 2.7em;
+      color: #111;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 12px #fff;
+    }
+    .greeting {
+      font-size: 1.25em;
+      color: #111;
+      margin-bottom: 32px;
+      margin-top: 18px;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: bold;
+      text-shadow: 0 1px 8px #fff;
+    }
+    .hearts-container {
+      display: flex;
+      justify-content: center;
+      gap: 240px;
+      margin: 56px 0 60px 0;
+      flex-wrap: wrap;
+    }
+    .heart-btn {
+      width: 1280px;
+      height: 1280px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      outline: none;
+      position: relative;
+      transition: transform 0.1s;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .heart-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      filter: drop-shadow(var(--heart-shadow));
+    }
+    .heart-label {
+      position: absolute;
+      width: 90%;
+      top: 62%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Quicksand', sans-serif;
+      font-size: 8.4em;
+      font-weight: bold;
+      color: #111;
+      text-shadow: var(--heart-label-shadow);
+      letter-spacing: 2px;
+      pointer-events: none;
+      white-space: pre-line;
+      text-align: center;
+      line-height: 1.2;
+      user-select: none;
+    }
+    .poem-canvas {
+      background: var(--canvas-bg);
+      border-radius: 38px;
+      box-shadow: var(--canvas-shadow);
+      border: 2.5px solid var(--canvas-border);
+      padding: 60px 48px 38px 48px;
+      max-width: 1100px;
+      margin: 0 auto 36px auto;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeIn 0.5s;
+      position: relative;
+      color: #111;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    .poem-category,
+    .poem-translation,
+    .poem-farsi,
+    .poem-phonetic,
+    .poem-author {
+      color: #111 !important;
+      text-shadow: none !important;
+    }
+    .poem-category {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 3em;
+      font-weight: bold;
+      color: var(--accent);
+      margin-bottom: 24px;
+      letter-spacing: 1.2px;
+      text-align: center;
+    }
+    .poem-translation {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 2em;
+      margin-bottom: 18px;
+      text-align: left;
+      font-style: italic;
+      line-height: 1.7;
+    }
+    .poem-farsi {
+      font-family: 'Amiri', serif;
+      font-size: 1.7em;
+      margin-bottom: 14px;
+      text-align: right;
+      direction: rtl;
+      line-height: 1.8;
+    }
+    .poem-phonetic {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 1.5em;
+      margin-bottom: 12px;
+      text-align: left;
+      line-height: 1.5;
+    }
+    .poem-author {
+      font-family: 'Amiri', serif;
+      color: #ffb300;
+      font-size: 1.4em;
+      margin-top: 18px;
+      text-align: left;
+    }
+    .learn-link {
+      color: var(--link-color);
+      font-size: 1.3em;
+      margin-top: 10px;
+      text-decoration: underline;
+      cursor: pointer;
+      transition: color 0.2s;
+      font-family: 'Quicksand', sans-serif;
+      display: inline-block;
+    }
+    .learn-link:hover {
+      color: var(--link-hover);
+    }
+    .home-btn {
+      display: none;
+      margin: 0 auto;
+      margin-bottom: 24px;
+      background: var(--button-bg);
+      color: var(--button-color);
+      border: none;
+      border-radius: 16px;
+      font-size: 1.5em;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: bold;
+      padding: 20px 56px;
+      cursor: pointer;
+      box-shadow: 0 2px 12px #0003;
+      transition: background 0.2s;
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      z-index: 10;
+    }
+    .home-btn:hover {
+      background: var(--button-hover-bg);
+    }
+    @media (max-width: 1600px) {
+      .hearts-container {
+        gap: 40px;
+      }
+      .heart-btn {
+        width: 640px;
+        height: 640px;
+      }
+      .heart-label {
+        font-size: 4.2em;
+      }
+      .poem-canvas {
+        padding: 22px 8px;
+      }
+      .brand-title {
+        font-size: 1.6em;
+      }
+      .greeting {
+        font-size: 1em;
+      }
+      .poem-category {
+        font-size: 1.7em;
+      }
+      .home-btn {
+        top: 16px;
+        right: 16px;
+        padding: 12px 24px;
+        font-size: 1em;
+      }
+    }
+    @media (max-width: 900px) {
+      .hearts-container {
+        gap: 8px;
+      }
+      .heart-btn {
+        width: 320px;
+        height: 320px;
+      }
+      .heart-label {
+        font-size: 2.2em;
+      }
+      .poem-canvas {
+        padding: 8px 2px;
+      }
+      .brand-title {
+        font-size: 1.1em;
+      }
+      .greeting {
+        font-size: 0.8em;
+      }
+      .poem-category {
+        font-size: 1em;
+      }
+    }
+    @media (max-width: 600px) {
+      .heart-btn {
+        width: 160px;
+        height: 160px;
+      }
+      .heart-label {
+        font-size: 1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand-title">Maryam My Sunshine Daughter</div>
+    <div class="greeting">
+      Dokhtarem, choose one heart each day to keep your heart filled with knowledge.<br>
+      Love – pops ❤️
+    </div>
+  </header>
+
+  <div class="hearts-container" id="hearts">
+    <!-- Heart Buttons Will Be Injected Here -->
+  </div>
+
+  <div class="poem-canvas" id="poemCanvas">
+    <button class="home-btn" id="homeBtn">Home</button>
+    <div class="poem-category" id="poemCategory"></div>
+    <div class="poem-translation" id="poemTranslation"></div>
+    <div class="poem-farsi" id="poemFarsi"></div>
+    <div class="poem-phonetic" id="poemPhonetic"></div>
+    <div class="poem-author" id="poemAuthor"></div>
+    <a class="learn-link" id="learnLink" target="_blank">Learn more about this poem</a>
+  </div>
+
+  <script>
+    // Heart data with unique learn links for each poem (replace '#' with your real URLs)
+    const hearts = [
+      {
+        label: "Gratitude",
+        color: "#ffb6b9",
+        poems: [
+          {
+            farsi: `هر نفسی که فرو می‌رود ممدّ حیات است\nو چون برون می‌آید مفرّح ذات است\nپس در هر نفسی دو نعمت موجود است\nو بر هر نعمتی شکری واجب`,
+            phonetic: `Har nafasi ke foru miravad momad-e hayaat ast\nVa chun borun miayad mofarreh-e zaat ast\nPas dar har nafasi do nemat mojood ast\nVa bar har nemati shokri vajeb`,
+            translation: `Each breath inhaled sustains life,\nEach exhaled, refreshes the soul.\nThus in every breath, two blessings reside,\nFor each, gratitude is owed.`,
+            author: "Saadi",
+            learn: "https://en.wikipedia.org/wiki/Saadi_Shirazi"
+          },
+          {
+            farsi: `شکر نعمت نعمتت افزون کند\nکفر نعمت از کفت بیرون کند`,
+            phonetic: `Shokr-e nemat, nematat afzoon konad\nKofr-e nemat, az kaft birun konad`,
+            translation: `Gratitude increases your blessings,\nIngratitude takes them away.`,
+            author: "Saadi",
+            learn: "https://www.tebyan.net/newindex.aspx?pid=934&articleID=553132"
+          }
+        ]
+      },
+      {
+        label: "Awareness",
+        color: "#fcd5ce",
+        poems: [
+          {
+            farsi: `ای دیده تو بس روشن، ای دل تو بس بیدار\nدر هر نظر اندیشه، در هر قدم اسرار`,
+            phonetic: `Ey dideh to bas roshan, ey del to bas bidar\nDar har nazar andisheh, dar har ghadam asrar`,
+            translation: `O eye, so bright; O heart, so awake,\nIn every glance, wisdom; in every step, secrets unfold.`,
+            author: "Parvin Etesami",
+            learn: "https://en.wikipedia.org/wiki/Parvin_Etesami"
+          },
+          {
+            farsi: `آگاه باش تا که جهان را دری\nدر خویش نگر تا که خدا را بری`,
+            phonetic: `Agah bash ta ke jahan ra dari\nDar khish negar ta ke Khoda ra bari`,
+            translation: `Be aware to grasp the world,\nLook within to find the Divine.`,
+            author: "Hafez",
+            learn: "https://en.wikipedia.org/wiki/Hafez"
+          }
+        ]
+      },
+      {
+        label: "Confidence",
+        color: "#b5ead7",
+        poems: [
+          {
+            farsi: `به خود آی و جهان را به خود آسان گیر\nکه تو آن گوهری، خود را ارزان مگیر`,
+            phonetic: `Be khod ay va jahan ra be khod asan gir\nKe to an gohari, khod ra arzan magir`,
+            translation: `Return to yourself and make the world easy for you,\nYou are that precious gem, do not undervalue yourself.`,
+            author: "Parvin Etesami",
+            learn: "https://en.wikipedia.org/wiki/Parvin_Etesami"
+          },
+          {
+            farsi: `تو خود حجاب خودی حافظ از میان برخیز\nخوشا کسی که در این راه بی‌حجاب رود`,
+            phonetic: `To khod hejabe khodi Hafez az miyan barkhiz\nKhosha kasi ke dar in rah bi-hejab ravad`,
+            translation: `You are your own veil, Hafez, remove it from between.\nFortunate is the one who walks this path unveiled.`,
+            author: "Hafez",
+            learn: "https://en.wikipedia.org/wiki/Hafez"
+          }
+        ]
+      },
+      {
+        label: "Humble",
+        color: "#c3bef7",
+        poems: [
+          {
+            farsi: `تا توانی به جهان خدمت محتاجان کن\nبه دمی یا درمی یا قلمی یا قدمی`,
+            phonetic: `Ta tavani be jahan khedmat-e mohtajan kon\nBe dami ya darami ya ghalami ya ghadami`,
+            translation: `As long as you can, serve those in need—\nWith a breath, a coin, a pen, or a step.`,
+            author: "Saadi",
+            learn: "https://en.wikipedia.org/wiki/Saadi_Shirazi"
+          },
+          {
+            farsi: `خاک شو تا گل بروید ای عزیز\nکبر و نازکشی ز تو دور باد`,
+            phonetic: `Khak sho ta gol beroyad ey aziz\nKebro naz keshidan az to door bad`,
+            translation: `Become dust so flowers may grow, dear one.\nMay arrogance and pride be far from you.`,
+            author: "Rumi",
+            learn: "https://en.wikipedia.org/wiki/Rumi"
+          }
+        ]
+      },
+      {
+        label: "Perspective",
+        color: "#f7b267",
+        poems: [
+          {
+            farsi: `جهان چون خط و خال و چشم و ابروست\nکه هر چیزی به جای خویش نیکوست`,
+            phonetic: `Jahan chun khat o khal o cheshm o abroost\nKe har chizi be jaye khish nikoust`,
+            translation: `The world is like lines, moles, eyes, and brows—\nEach thing is beautiful in its own place.`,
+            author: "Saadi",
+            learn: "https://en.wikipedia.org/wiki/Saadi_Shirazi"
+          },
+          {
+            farsi: `گر نظر پاک کنی، هر چه ببینی نیکوست\nچشم اگر خوب ببیند، همه عالم زیباست`,
+            phonetic: `Gar nazar pak koni, har che bebinni nikoust\nChashm agar khub bebinad, hameh alam zibast`,
+            translation: `If you purify your sight, all you see is good.\nWhen the eye sees well, the whole world is beautiful.`,
+            author: "Hafez",
+            learn: "https://en.wikipedia.org/wiki/Hafez"
+          }
+        ]
+      }
+    ];
+
+    // Track shown poems to minimize repeats
+    let poemOrder = hearts.map(heart => shuffle(Array.from({length: heart.poems.length}, (_, i) => i)));
+    let poemIndex = Array(hearts.length).fill(0);
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    // SVG Heart Template
+    function heartSVG(color) {
+      return `
+        <svg class="heart-svg" viewBox="0 0 100 100">
+          <path d="M50 82
+            Q15 60 20 35
+            Q25 10 50 25
+            Q75 10 80 35
+            Q85 60 50 82Z"
+            fill="${color}" stroke="#fff" stroke-width="3"/>
+        </svg>
+      `;
+    }
+
+    // Render hearts
+    const heartsContainer = document.getElementById('hearts');
+    hearts.forEach((heart, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'heart-btn';
+      btn.innerHTML = heartSVG(heart.color) + `<span class="heart-label">${heart.label}</span>`;
+      btn.addEventListener('click', () => showPoem(idx));
+      heartsContainer.appendChild(btn);
+    });
+
+    // Show poem, minimal repeats
+    function showPoem(idx) {
+      const heart = hearts[idx];
+      let order = poemOrder[idx];
+      let i = poemIndex[idx];
+      if (i >= order.length) {
+        order = shuffle(Array.from({length: heart.poems.length}, (_, i) => i));
+        poemOrder[idx] = order;
+        i = 0;
+        poemIndex[idx] = 0;
+      }
+      const poem = heart.poems[order[i]];
+      poemIndex[idx]++;
+      document.getElementById('poemCategory').textContent = heart.label;
+      document.getElementById('poemTranslation').textContent = poem.translation;
+      document.getElementById('poemFarsi').textContent = poem.farsi;
+      document.getElementById('poemPhonetic').textContent = poem.phonetic;
+      document.getElementById('poemAuthor').textContent = `— ${poem.author}`;
+      document.getElementById('learnLink').href = poem.learn || "#";
+      document.getElementById('poemCanvas').style.display = 'flex';
+      document.getElementById('homeBtn').style.display = 'block';
+      heartsContainer.style.display = 'none';
+    }
+
+    // Home button
+    document.getElementById('homeBtn').addEventListener('click', () => {
+      document.getElementById('poemCanvas').style.display = 'none';
+      document.getElementById('homeBtn').style.display = 'none';
+      heartsContainer.style.display = 'flex';
+    });
+
+    // Always show home button on poem page
+    document.getElementById('poemCanvas').addEventListener('mousemove', () => {
+      document.getElementById('homeBtn').style.display = 'block';
+    });
+  </script>
+</body>
+</html>
